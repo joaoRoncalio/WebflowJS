@@ -1,23 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx'); // Ou use uma classe mais estável se possível
+    // Seleciona todos os elementos que devem ser exibidos ou ocultados
+    var elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx');
+    // Seleciona todos os links que devem acionar a exibição/ocultação
     var links = document.querySelectorAll('.link-whatsapp');
 
+    // Adiciona um ouvinte de evento a cada link
     links.forEach(function (link) {
-        var toggleDisplay = function (event) {
-            event.preventDefault();
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // Previne o comportamento padrão do link
+            // Alterna o estado de exibição de cada elemento
             elementosWhatsApp.forEach(function (elemento) {
                 var displayAtual = window.getComputedStyle(elemento).getPropertyValue('display');
-                // Usando manipulação direta da propriedade
                 if (displayAtual === 'none') {
-                    elemento.style.display = 'flex'; // Ou 'block' se flex não for necessário
+                    elemento.style.setProperty('display', 'flex', 'important');
                 } else {
-                    elemento.style.display = 'none';
+                    elemento.style.setProperty('display', 'none', 'important');
                 }
             });
-        };
-
-        // Adicionando touchstart para melhor resposta em mobile
-        link.addEventListener('touchstart', toggleDisplay);
-        link.addEventListener('click', toggleDisplay);
+        });
     });
 });
