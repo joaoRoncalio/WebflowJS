@@ -1,29 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const hiddenClassName = 'hidden-by-whatsapp-toggle';
+    console.log('[WhatsApp Toggle] DOMContentLoaded fired.'); // Check if script starts
+    const visibleClassName = 'whatsapp-visible';
     const elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx.svelte-lyhjhx.svelte-lyhjhx');
     const links = document.querySelectorAll('.link-whatsapp');
 
-    // Sanity checks... (keep them)
-    if (elementosWhatsApp.length === 0) { /* ... */ return; }
-    if (links.length === 0) { /* ... */ return; }
+    console.log(`[WhatsApp Toggle] Found ${elementosWhatsApp.length} elements to toggle.`); // Check selector
+    console.log(`[WhatsApp Toggle] Found ${links.length} trigger links.`); // Check selector
 
-    // --- Set Initial State to Hidden via JS ---
-    // Loop through all target elements and add the hidden class if it's not already there.
-    elementosWhatsApp.forEach(function(elemento) {
-        if (!elemento.classList.contains(hiddenClassName)) {
-            elemento.classList.add(hiddenClassName);
-        }
-    });
-    // Optional log: Indicate that initial state was set
-    // console.log(`[WhatsApp Toggle (CSS Class)] Applied initial hidden state using class '${hiddenClassName}'.`);
-    // --- End Initial State Setting ---
+    if (elementosWhatsApp.length === 0 || links.length === 0) {
+        console.error('[WhatsApp Toggle] Critical: Missing elements or links. Aborting.');
+        return;
+    }
 
-    // --- Add Click Listeners (No change here) ---
     links.forEach(function (link) {
         link.addEventListener('click', function (event) {
+            console.log('[WhatsApp Toggle] Link clicked!', event.target); // Check if click is detected
             event.preventDefault();
             elementosWhatsApp.forEach(function (elemento) {
-                elemento.classList.toggle(hiddenClassName);
+                console.log(`[WhatsApp Toggle] Toggling class '${visibleClassName}' on element:`, elemento); // Check toggle attempt
+                elemento.classList.toggle(visibleClassName);
             });
         });
     });
