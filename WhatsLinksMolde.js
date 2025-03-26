@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Seleciona todos os elementos que devem ser exibidos ou ocultados
-    var elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx');
+    var elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx.svelte-lyhjhx.svelte-lyhjhx');
     // Seleciona todos os links que devem acionar a exibição/ocultação
     var links = document.querySelectorAll('.link-whatsapp');
 
