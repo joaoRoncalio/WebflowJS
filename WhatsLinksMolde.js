@@ -1,16 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Seleciona todos os elementos que devem ser exibidos ou ocultados
-    var elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx');
-    // Seleciona todos os links que devem acionar a exibição/ocultação
-    var links = document.querySelectorAll('.link-whatsapp');
+    // 1. Seleção de Elementos (com verificação)
+    const elementosWhatsApp = document.querySelectorAll('.box.svelte-lyhjhx');
+    const links = document.querySelectorAll('.link-whatsapp');
 
-@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
-            elementosWhatsApp.forEach(function (elemento) {
-                var displayAtual = window.getComputedStyle(elemento).getPropertyValue('display');
-                if (displayAtual === 'none') {
-                    elemento.style.setProperty('display', 'flex', 'important');
-                } else {
-                    elemento.style.setProperty('display', 'none', 'important');
-                }
+    // 2. Função para Alternar a Exibição
+    const toggleDisplay = (event) => {
+        event.preventDefault(); // Previne o comportamento padrão do link
+
+        // Verificação se os elementos existem antes de manipular
+        if (elementosWhatsApp && elementosWhatsApp.length > 0) {
+            elementosWhatsApp.forEach(elemento => {
+                const displayAtual = window.getComputedStyle(elemento).getPropertyValue('display');
+                // Manipulação direta do estilo (mais compatível)
+                elemento.style.display = displayAtual === 'none' ? 'flex' : 'none';
             });
+        } else {
+            console.warn('Elementos .box.svelte-lyhjhx não encontrados.');
+        }
+    };
+
+    // 3. Adição de Event Listeners (com touchstart)
+    if (links && links.length > 0) {
+        links.forEach(link => {
+            // Use touchstart para melhor resposta em dispositivos móveis
+            link.addEventListener('touchstart', toggleDisplay, { passive: false });
+            // Use click como fallback
+            link.addEventListener('click', toggleDisplay);
         });
+    } else {
+        console.warn('Elementos .link-whatsapp não encontrados.');
+    }
+});
